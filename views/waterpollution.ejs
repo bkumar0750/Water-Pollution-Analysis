@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Water Pollution</title>
+    <link rel="stylesheet" href="/styles/waterpollution.css">
+</head>
+<body>
+    <!-- Back to Home Button -->
+    <div class="back-button-container">
+        <button class="back-button" onclick="goBackHome()">&#8592; Back to Home</button>
+    </div>
+
+    <body>
+        <div class="container">
+            <h3>Simple Water Quality Index</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Data Entry</th>
+                        <th>Parameter Range</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Temperature (°C)</td>
+                        <td><input class="input-field" type="number" id="temperature" placeholder="Temperature (°C)"></td>
+                        <td><div class="range-box">0°C  ➞ 40°C</div></td>
+                    </tr>
+                    <tr>
+                        <td>BOD (mg/L)</td>
+                        <td><input class="input-field" type="number" id="bod" placeholder="Biological Oxygen Demand (mg/L)"></td>
+                        <td><div class="range-box">0 mg/L  ➞ 12 mg/L</div></td>
+                    </tr>
+                    <tr>
+                        <td>TSS (mg/L)</td>
+                        <td><input class="input-field" type="number" id="tss" placeholder="Total Suspended Sediment (mg/L)"></td>
+                        <td><div class="range-box">0 mg/L  ➞ 250 mg/L</div></td>
+                    </tr>
+                    <tr>
+                        <td>DO (mg/L)</td>
+                        <td><input class="input-field" type="number" id="do" placeholder="Dissolved Oxygen (mg/L)"></td>
+                        <td><div class="range-box">0 mg/L  ➞ 10 mg/L</div></td>
+                    </tr>
+                    <tr>
+                        <td>Conductivity (μS/cm)</td>
+                        <td><input class="input-field" type="number" id="conductivity" placeholder="Conductivity (μS/cm)"></td>
+                        <td><div class="range-box">1μS  ➞ 4000μS</div></td>
+                    </tr>
+                </tbody>
+            </table>
+    
+            <div class="index-result" id="waterQualityIndex">
+                Simple Water Quality Index: --
+            </div>
+    
+            <div class="buttons">
+                <button class="btn" onclick="resetForm()">Reset</button>
+                <button class="btn" onclick="submitForm()">Submit</button>
+            </div>
+        </div>
+    
+        <script>
+
+        function goBackHome() {
+            window.location.href = 'fwater'; // Assuming index.html is the home page
+        }
+         
+            function resetForm() {
+                document.getElementById("temperature").value = '';
+                document.getElementById("bod").value = '';
+                document.getElementById("tss").value = '';
+                document.getElementById("do").value = '';
+                document.getElementById("conductivity").value = '';
+                document.getElementById("waterQualityIndex").innerText = "Simple Water Quality Index: --";
+            }
+    
+            function submitForm() {
+                let temperature = document.getElementById("temperature").value;
+                let bod = document.getElementById("bod").value;
+                let tss = document.getElementById("tss").value;
+                let doValue = document.getElementById("do").value;
+                let conductivity = document.getElementById("conductivity").value;
+    
+                let waterQualityIndex = calculateIndex(temperature, bod, tss, doValue, conductivity);
+                document.getElementById("waterQualityIndex").innerText = "Simple Water Quality Index: " + waterQualityIndex;
+            }
+    
+            function calculateIndex(temperature, bod, tss, doValue, conductivity) {
+                // Simple logic for demo, adjust as needed for real calculation
+                let index = 100 - (parseFloat(bod) + parseFloat(tss) / 10 + parseFloat(conductivity) / 100);
+                index = Math.max(0, Math.min(100, index));  // Ensure index stays between 0 and 100
+                return index;
+            }
+        </script>
+    </body>
+</body>
+</html>
