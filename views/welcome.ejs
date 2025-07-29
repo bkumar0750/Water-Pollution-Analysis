@@ -30,6 +30,13 @@
     <link rel="stylesheet" href="/styles/welcome.css">
 </head>
 <body>
+<!-- Consent Banner -->
+<div id="consent-banner" class="fixed bottom-0 w-full bg-gray-800 text-white text-center p-4 z-50">
+  <p class="mb-2">This website uses cookies for analytics. Do you accept?</p>
+  <button onclick="acceptCookies()" class="bg-green-500 hover:bg-green-600 px-4 py-2 rounded mx-2">Accept</button>
+  <button onclick="declineCookies()" class="bg-red-500 hover:bg-red-600 px-4 py-2 rounded mx-2">Decline</button>
+</div>
+
     <div class="mode-toggle-container">
         <button id="modeToggle" class="mode-toggle">🌙</button>
     </div>
@@ -120,5 +127,24 @@
             this.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
         });
     </script>
+<script>
+  function acceptCookies() {
+    gtag('consent', 'update', {
+      'ad_storage': 'granted',
+      'analytics_storage': 'granted'
+    });
+    gtag('config', 'G-4LZS00XGWE'); // Only run GA after consent
+    document.getElementById('consent-banner').style.display = 'none';
+  }
+
+  function declineCookies() {
+    gtag('consent', 'update', {
+      'ad_storage': 'denied',
+      'analytics_storage': 'denied'
+    });
+    document.getElementById('consent-banner').style.display = 'none';
+  }
+</script>
+
 </body>
 </html>
